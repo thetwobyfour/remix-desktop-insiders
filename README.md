@@ -25,3 +25,22 @@ To find out more about Remix IDE - please go to [ethereum/remix-project](https:/
 - You can run it partially offline. Some plugins will not work when offline.
 - You can work on your files in other editors, tools at the same time.
 
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
+
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract RanaFi is ERC20, Ownable {
+    constructor() ERC20("RanaFi", "RFI") {
+        _mint(msg.sender, 1000000000 * 10 ** decimals()); // 1 billón de tokens
+    }
+
+    function mint(address to, uint256 amount) public onlyOwner {
+        _mint(to, amount);
+    }
+
+    function burn(uint256 amount) public {
+        _burn(msg.sender, amount);
+    }
+}
